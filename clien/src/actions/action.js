@@ -106,3 +106,23 @@ export function searchFailure(payload) {
     payload,
   };
 }
+
+//
+export function deleteImageRequest(payload) {
+  return {
+      type: types.DELETE_IMAGE_REQUEST, 
+      payload
+  }
+}
+export function deleteImageSuccess(payload) {
+  return {
+      type: types.DELETE_IMAGE_SUCCESS,
+      payload
+  }
+}
+export function deleteImageFailure(payload) {
+  return {
+      type: types.DELETE_IMAGE_FAILURE,
+      payload
+  }
+}

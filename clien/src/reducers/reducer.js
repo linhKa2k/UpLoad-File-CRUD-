@@ -14,6 +14,7 @@ export default (state = DEFAULT_STATE, action) => {
     case types.DELETE_ITEM_REQUEST:
     case types.UPDATE_ITEM_REQUEST:
     case types.SEARCH_ITEM_REQUEST:
+    case types.DELETE_IMAGE_REQUEST:
       return {
         ...state,
         isFetching: true,
@@ -23,20 +24,20 @@ export default (state = DEFAULT_STATE, action) => {
     case types.ADD_ITEM_SUCCESS:
     case types.DELETE_ITEM_SUCCESS:
     case types.UPDATE_ITEM_SUCCESS:
+    case types.DELETE_IMAGE_SUCCESS:
       return {
         ...state,
         isFetching: false,
         dataFetched: true,
       };
 
-      case types.GET_ITEM_SUCCESS:
+    case types.GET_ITEM_SUCCESS:
       return {
         ...state,
         isFetching: false,
         dataFetched: true,
-        listData: action.payload.listData
+        listData: action.payload.listData,
       };
-
 
     case types.SEARCH_ITEM_SUCCESS:
       return {
@@ -51,6 +52,7 @@ export default (state = DEFAULT_STATE, action) => {
     case types.DELETE_ITEM_FAILURE:
     case types.UPDATE_ITEM_FAILURE:
     case types.SEARCH_ITEM_FAILURE:
+    case types.DELETE_IMAGE_FAILURE:
       return {
         ...state,
         error: true,

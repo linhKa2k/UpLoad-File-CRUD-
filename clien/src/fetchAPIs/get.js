@@ -1,4 +1,3 @@
-// import * as types from "../constants";
 export function getDataApi() {
   return new Promise((resolve, reject) => {
     const url = "http://localhost:3001/get";

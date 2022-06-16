@@ -29,8 +29,8 @@ class Item extends Component {
     form.append("name", this.state.name);
     this.props.addData({ form: form });
 
-    this.setState({listImgPreview : []})
-    document.getElementById("id").value = ""
+    this.setState({ listImgPreview: [] });
+    document.getElementById("id").value = "";
   }
 
   handleUpdate() {
@@ -43,11 +43,8 @@ class Item extends Component {
     form.append("id", this.state.id);
     this.props.updateData({ form: form });
 
-    this.setState({listImgPreview : [],nameUpdate: ""})
-
-    
+    this.setState({ listImgPreview: [], nameUpdate: "" });
   }
-
 
   render() {
     let list = [];
@@ -67,6 +64,13 @@ class Item extends Component {
                       alt="anh"
                       style={{ with: 150, height: 150 }}
                     />
+                    <button
+                      onClick={() => {
+                        this.props.deleteImage({ id: item._id, key: key });
+                      }}
+                    >
+                      xoa anh
+                    </button>
                   </span>
                 );
               })}
@@ -103,25 +107,31 @@ class Item extends Component {
           <input
             type="file"
             multiple
-            id = "id"
+            id="id"
             onChange={(e) => this.handlePreview(e.target.files)}
           />
           {this.state.listImgPreview.map((img, key) => {
-          return (
-            <span key={key}>
-              <img src={img} alt="nice" style={{ with: 150, height: 150 }} />
-            </span>
-          );
-        })}
+            return (
+              <span key={key}>
+                <img src={img} alt="nice" style={{ with: 150, height: 150 }} />
+              </span>
+            );
+          })}
           <input
             placeholder="Tên ảnh"
             onChange={(e) => {
               this.setState({ name: e.target.value });
             }}
           />
-          <button onClick={() => {this.handleUpLoad()}} >Submit File</button>
+          <button
+            onClick={() => {
+              this.handleUpLoad();
+            }}
+          >
+            Submit File
+          </button>
         </div>
-        <div> 
+        <div>
           <input
             placeholder="Đổi Tên"
             onChange={(e) => {
@@ -132,13 +142,23 @@ class Item extends Component {
           <button onClick={() => this.handleUpdate()}>Update</button>
         </div>
         <div>
-                    <input placeholder="Tìm Tên Ảnh" onChange={(e) => { this.setState({ textSearch: e.target.value }) }} />
-                    <button onClick={() => { this.props.searchData({ textSearch: this.state.textSearch }) }}>SEARCH</button>
-                </div>
+          <input
+            placeholder="Tìm Tên Ảnh"
+            onChange={(e) => {
+              this.setState({ textSearch: e.target.value });
+            }}
+          />
+          <button
+            onClick={() => {
+              this.props.searchData({ textSearch: this.state.textSearch });
+            }}
+          >
+            SEARCH
+          </button>
+        </div>
         <table>
           <tbody>{list}</tbody>
         </table>
-        
       </div>
     );
   }

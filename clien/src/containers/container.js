@@ -15,8 +15,6 @@ class ItemContainer extends React.Component {
 const mapStateToProps = (state) => {
   return {
     listData: state.itemReducer.listData,
-    activePage: state.itemReducer.activePage,
-    totalPage: state.itemReducer.totalPage,
     textSearch: state.itemReducer.textSearch,
   };
 };
@@ -36,7 +34,11 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actions.updateRequest(data));
     },
     searchData: (data) => {
-      dispatch(actions.searchRequest(data));}
+      dispatch(actions.searchRequest(data));
+    },
+    deleteImage: (data) => {
+      dispatch(actions.deleteImageRequest(data));
+    },
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ItemContainer);

@@ -6,11 +6,12 @@ import { addDataApi } from "../fetchAPIs/add";
 import { deleteDataApi } from "../fetchAPIs/delete";
 import { updataDataApi } from "../fetchAPIs/update";
 import { searchDataApi } from "../fetchAPIs/search";
+import { deleteImgApi } from "../fetchAPIs/deleteImg";
 
 function* getApi() {
   try {
     const res = yield getDataApi();
-    yield put(actions.getSuccess({listData: res.data}));
+    yield put(actions.getSuccess({ listData: res.data }));
   } catch (error) {
     yield put(actions.getFailure({ errorMessage: error.message }));
   }
@@ -50,10 +51,24 @@ function* updateApi(action) {
 function* searchApi(action) {
   try {
     const search = yield searchDataApi(action.payload);
-    yield put(actions.searchSuccess({listData: search.data,textSearch: search.textSearch }));
-    console.log(search.textSearch, "sagaaaaaaaaa");
+    yield put(
+      actions.searchSuccess({
+        listData: search.data,
+        textSearch: search.textSearch,
+      })
+    );
   } catch (error) {
     yield put(actions.searchFailure({ errorMessage: error.message }));
+  }
+}
+
+function* deleteImage(action) {
+  try {
+    yield deleteImgApi(action.payload);
+    yield put(actions.deleteImageSuccess());
+    yield put(actions.getRequest());
+  } catch (error) {
+    yield put(actions.deleteImageFailure(error));
   }
 }
 
@@ -63,4 +78,5 @@ export const itemSaga = [
   takeEvery(types.DELETE_ITEM_REQUEST, deleteApi),
   takeEvery(types.UPDATE_ITEM_REQUEST, updateApi),
   takeEvery(types.SEARCH_ITEM_REQUEST, searchApi),
+  takeEvery(types.DELETE_IMAGE_REQUEST, deleteImage),
 ];
